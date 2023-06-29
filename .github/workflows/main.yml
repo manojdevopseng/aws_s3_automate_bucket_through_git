@@ -18,8 +18,8 @@ jobs:
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AKIAYLS6COEZNY33NR6R }}
-          aws-secret-access-key: ${{ secrets./MGRWh0ky3Rv+RQtekjNnCmJBCVcIibAhQABuCd/ }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
       - name: Upload files to S3
