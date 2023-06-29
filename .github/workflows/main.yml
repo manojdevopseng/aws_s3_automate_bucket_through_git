@@ -1,0 +1,43 @@
+name: Upload to S3 and Cron Job
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '*/2 * * * *'  # Run every day in every minutes
+
+jobs:
+  upload_to_s3:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Upload files to S3
+        run: |
+          if [ "${{ github.event_name }}" == "push" ]; then
+            aws s3 sync ${{ env.FOLDER_TO_UPLOAD }} s3://awsbucketforgit1221/${{ env.ENVIRONMENT }}/ --delete
+          else
+            echo "Skipping S3 upload for scheduled cron job"
+          fi
+
+  cron_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run cron job
+        run: |
+          # Place your cron job commands here
+          echo "Cron job running at $(date)"
