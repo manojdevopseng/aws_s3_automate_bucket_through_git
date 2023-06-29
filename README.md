@@ -1,0 +1,1 @@
+# aws_s3_automate_bucket_through_git
