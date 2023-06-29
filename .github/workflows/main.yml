@@ -25,7 +25,7 @@ jobs:
       - name: Upload files to S3
         run: |
           if [ "${{ github.event_name }}" == "push" ]; then
-            aws s3 sync ${{ env.FOLDER_TO_UPLOAD }} s3://awsbucketforgit1221/${{ env.ENVIRONMENT }}/ --delete
+            aws s3 sync ./ ${{ env.FOLDER_TO_UPLOAD }} s3://awsbucketforgit1221/${{ env.ENVIRONMENT }}/ --delete
           else
             echo "Skipping S3 upload for scheduled cron job"
           fi
