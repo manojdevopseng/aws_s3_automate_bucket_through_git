@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '*/2 * * * *'  # Run every day in every minutes
+    - cron: '0 */2 * * *'  # Run every day in 2 hour
 
 jobs:
   upload_to_s3:
